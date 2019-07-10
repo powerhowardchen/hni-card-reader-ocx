@@ -1,0 +1,55 @@
+<HTML>
+  <body>
+    <script language='javascript'>
+      function addResult(line) {
+        document.getElementById("result").value = document.getElementById("result").value + line + '\n';
+      }
+      function ExecRead() {
+        var NHICardReader = document.getElementById('NHICardReader');
+
+        document.getElementById("result").value = '';
+        NHICardReader.Refresh();
+
+        for (var i=0; i<NHICardReader.ReaderCount; i++) {
+          NHICardReader.ReaderIndex = i;
+
+          if (NHICardReader.CardPresent) {
+            addResult('Reader Index: ' + NHICardReader.ReaderIndex);
+            addResult('Reader Name: ' + NHICardReader.ReaderName);
+
+            if (NHICardReader.Read()) {
+              addResult('NHI_IDNO: ' + NHICardReader.NHI_IDNO);
+              addResult('NHI_HolderName: ' + NHICardReader.NHI_HolderName);
+              addResult('NHI_Sex: ' + NHICardReader.NHI_Sex);
+              addResult('NHI_BirthDate: ' + new Date(NHICardReader.NHI_BirthDate).toLocaleDateString());
+              addResult('NHI_CardNo: ' + NHICardReader.NHI_CardNo);
+              addResult('NHI_IssueDate: ' + new Date(NHICardReader.NHI_IssueDate).toLocaleDateString());
+            }
+            else
+              addResult(NHICardReader.ErrorMsg);
+            addResult('========================================');
+          }
+        }
+      }
+    </script>
+    <H1> PCSC NHI Card Read ActiveX Test Page </H1>
+    <p>
+    <HR>
+    <center>
+    <p>
+      <OBJECT
+        classid="clsid:1BFA1079-2761-4FF6-8499-5D886F7D972E"
+        codebase="NHICardReaderOCX.ocx#version=0,5,0,40"
+        id='NHICardReader'
+        width=350
+        height=50
+        align=center
+        hspace=0
+        vspace=0
+        >
+      </OBJECT><br/><br/>
+      <input type='button' value='Read Card' onclick='ExecRead();'>
+    </p>
+    <textarea rows=20 cols=60 id="result"></textarea>
+  </body>
+</HTML>
