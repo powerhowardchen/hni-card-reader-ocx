@@ -7,9 +7,6 @@
 ### PCSCConnect VCL元件
 可以操作PCSC的基礎元件，參考修改自 https://github.com/johnidm/PCSCSmartCardComponent 的作品。
 
-### PCSCConnect OCX元件
-以VCL為基礎而建立的OCX ActiveX元件。
-
 ### 範例
 範例程式。
 
